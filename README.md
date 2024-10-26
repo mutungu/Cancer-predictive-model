@@ -1,105 +1,89 @@
 # Cancer-predictive-model
-https://cjni.net/journal/wp-content/uploads/2023/06/Reviera-ML.png
-
 This project aims to develop a predictive model to assess cancer risk based on various health, dietary, and demographic factors. We use a structured process to clean, preprocess, and model the data, applying advanced machine learning techniques, including transformers for feature extraction, to improve prediction accuracy.
 
 Table of Contents
-Project Overview
-Dataset Information
-Project Workflow
-Installation and Setup
+Project Description
+Data Description
+Installation
 Usage
-Visualizations
+Analysis & Visualizations
+Results
 Contributing
 License
-Project Overview
-This predictive model is structured to analyze various health and lifestyle data points to calculate the likelihood of cancer risk in individuals. The model integrates demographic, dietary, laboratory, and lifestyle data to create a robust predictive model, moving through each stage of data handling, feature engineering, and model training.
+Project Description
+This analysis uses dietary records and cancer-related literature to examine possible links between nutrient intake and cancer. Using machine learning models, statistical tests, and visualizations, the project aims to identify dietary factors that may correlate with cancer risk or serve as protective elements against cancer development.
 
-Dataset Information
-The dataset consists of merged files covering:
+Data Description
+Primary dataset used:
 
-Demographic Data: Participant details such as age, gender, ethnicity, etc.
-Dietary Data: Information on nutrition and dietary habits.
-Lab Results: Biomarker values including CRP and HbA1c levels.
-Lifestyle Factors: General lifestyle and medical history.
-Dataset Path: /content/merged_cancer_data.csv (or other format)
+Total Nutrient Intake (First Day and Second Day)
+Files: DR1TOT_J Data, DR2TOT_J Data
+Size: ~16.9 MB total
+Date Published: June 2020
+The dataset includes records of nutrient intake, such as:
 
-Project Workflow
-The project follows a step-by-step procedure:
-
-Data Acquisition & Initial Analysis: Load and inspect datasets, identify key features.
-Data Cleaning & Preprocessing: Handle missing values, normalize data, and encode categorical variables.
-Feature Engineering: Create meaningful features, combining datasets to maximize predictive power.
-Model Development:
-First, a baseline model to identify impactful features.
-Then, advanced models and optional transformer layers for prediction.
-Evaluation & Validation: Assess model performance, using AUC-ROC, F1 score, and other metrics.
-Deployment: Package the final model and prepare for deployment.
-Installation and Setup
-Clone this repository:
+Macronutrients: Protein, Carbohydrates, Fats
+Micronutrients: Vitamins A, C, D, E, K, Calcium, Iron, Magnesium, Zinc
+Fiber and specific phytochemicals linked to cancer prevention.
+Supplementary Datasets
+Dietary Supplement Use (24-Hour and 30-Day): Information on supplement consumption patterns, including antioxidant supplements.
+Installation
+Clone the repository:
 bash
 Copy code
-git clone https://github.com/kiamaikocoders/predictive-cancer-risk-model.git
-Install required libraries:
+git clone https://github.com/username/NutritionalIntake_CancerRisk.git
+cd NutritionalIntake_CancerRisk
+Install the required Python packages:
 bash
 Copy code
 pip install -r requirements.txt
-Set up environment (for Colab users, mount Google Drive):
-python
-Copy code
-from google.colab import drive
-drive.mount('/content/drive')
 Usage
-Open the project notebook in Colab or Jupyter and follow the steps outlined to preprocess, train, and evaluate the model.
-Run each code cell to progress through data loading, cleaning, feature engineering, and model training.
-Visualizations
-Below are example visualizations to help understand the dataset and model results:
+Data Cleaning: Run data_cleaning.py to preprocess and clean the data files.
 
-1. Data Distribution
-A histogram of age and biomarker distributions, showing any skewness or outliers in the data.
-python
+bash
 Copy code
-import matplotlib.pyplot as plt
-import seaborn as sns
+python data_cleaning.py
+Exploratory Data Analysis (EDA): Execute eda_analysis.py to generate initial visualizations of nutrient distributions, daily variances, and correlations with potential cancer biomarkers.
 
-# Example: Age Distribution
-plt.figure(figsize=(10, 6))
-sns.histplot(data['age'], kde=True)
-plt.title('Age Distribution')
-plt.xlabel('Age')
-plt.ylabel('Frequency')
-plt.show()
-2. Correlation Matrix
-Shows the relationships between various numeric features, highlighting potential predictors.
-python
+bash
 Copy code
-plt.figure(figsize=(12, 10))
-sns.heatmap(data.corr(), annot=True, cmap='coolwarm')
-plt.title('Feature Correlation Matrix')
-plt.show()
-3. Model Performance
-A ROC curve to visualize model performance.
-python
+python eda_analysis.py
+Statistical Analysis: Use stat_analysis.py to perform correlation tests and regression analysis, identifying nutrients with significant associations to cancer risk.
+
+bash
 Copy code
-from sklearn.metrics import roc_curve, auc
+python stat_analysis.py
+Machine Learning Model: Run cancer_risk_model.py to train and test a classification model predicting cancer risk based on nutrient intake patterns.
 
-# Assuming y_test and y_pred_proba are defined
-fpr, tpr, _ = roc_curve(y_test, y_pred_proba)
-roc_auc = auc(fpr, tpr)
+bash
+Copy code
+python cancer_risk_model.py
+Analysis & Visualizations
+1. Nutrient Distribution Analysis
+Objective: Identify the distribution of key nutrients (fiber, vitamins A, C, E) across participants.
+Visualization: Box plots and histograms showing nutrient distribution and skewness.
+2. Correlation Matrix of Nutrients and Cancer Incidence
+Objective: Identify correlations between nutrient intake and cancer-related biomarkers or self-reported diagnoses.
+Visualization: Heatmap showing correlations, with high-risk nutrients highlighted.
+3. Nutrient Intake vs. Cancer Risk Model
+Objective: Use logistic regression to predict cancer risk based on nutrient patterns.
+Visualization: ROC curves and confusion matrix showing model accuracy and performance.
+Example Visualizations
+Visualization	Description
+Nutrient Distribution	Box plots of nutrients like fiber, vitamin C, showing intake variation across participants.
+Correlation Heatmap	Heatmap visualizing correlations between nutrient intake (e.g., fiber, fats) and cancer biomarkers.
+Cancer Risk Prediction	ROC curve for logistic regression model predicting cancer risk based on nutrient data.
+Results
+Key findings:
 
-plt.figure()
-plt.plot(fpr, tpr, color='darkorange', lw=2, label=f'ROC curve (area = {roc_auc:.2f})')
-plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-plt.title('Receiver Operating Characteristic (ROC) Curve')
-plt.legend(loc="lower right")
-plt.show()
+High Fiber Intake: Correlated with a reduced risk of colorectal cancer.
+Vitamin D and Calcium: Inverse correlation with several cancer types, supporting a protective role.
+High Fat Diets: Showed increased risk correlations, especially with high saturated fat intake.
+These results offer insight into dietary modifications that may lower cancer risk.
+
 Contributing
-Fork this repository.
-Create a new branch (git checkout -b feature/your-feature).
-Commit your changes (git commit -m 'Add feature').
-Push to the branch (git push origin feature/your-feature).
-Open a pull request.
+Contributions are welcome! If you would like to contribute, please submit a pull request or reach out to the project maintainer.
+
 License
 This project is licensed under the MIT License. See the LICENSE file for details.
+
