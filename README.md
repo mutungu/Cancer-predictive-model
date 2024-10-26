@@ -1,5 +1,5 @@
 # Cancer-predictive-model
-
+https://cjni.net/journal/wp-content/uploads/2023/06/Reviera-ML.png
 
 This project aims to develop a predictive model to assess cancer risk based on various health, dietary, and demographic factors. We use a structured process to clean, preprocess, and model the data, applying advanced machine learning techniques, including transformers for feature extraction, to improve prediction accuracy.
 
